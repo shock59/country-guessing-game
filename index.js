@@ -11,17 +11,26 @@ function shuffleArray(array) {
   return shuffled;
 }
 
+function createFlag(iso) {
+  const img = document.createElement("img");
+  img.src = `https://flagcdn.com/${iso.toLowerCase()}.svg`;
+  return img;
+}
+
 const country = randomFromArray(anthems);
 
 const audioTag = document.querySelector("audio");
 audioTag.src = country.src;
 
 const answerDiv = document.querySelector("#answer");
-answerDiv.innerHTML = `
-The correct answer was
-<img src="https://flagcdn.com/${country.iso.toLowerCase()}.svg" />
-<b>${country.countryName} - ${country.anthemName}</b> ${
-  country.translatedName ? `(${country.translatedName})` : ""
+const flag = createFlag(country.iso);
+const boldText = document.createElement("b");
+boldText.innerText = ` ${country.countryName} - ${country.anthemName}`;
+answerDiv.innerHTML = "The correct answer was ";
+answerDiv.appendChild(flag);
+answerDiv.appendChild(boldText);
+answerDiv.innerHTML += `${
+  country.translatedName ? ` ("${country.translatedName}")` : ""
 }`;
 
 let guessableCountries = [country];
@@ -35,8 +44,7 @@ guessableCountries = shuffleArray(guessableCountries);
 
 const buttonRow = document.querySelector("#button-row");
 for (let guessableCountry of guessableCountries) {
-  const img = document.createElement("img");
-  img.src = `https://flagcdn.com/${guessableCountry.iso.toLowerCase()}.svg`;
+  const img = createFlag(guessableCountry.iso);
   const span = document.createElement("span");
   span.innerText = guessableCountry.countryName;
   const button = document.createElement("button");

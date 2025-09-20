@@ -79,8 +79,17 @@ button img {
 
 #answer {
   font-size: 28px;
+  text-align: center;
 }
 
 #answer img {
   vertical-align: middle;
+}
+
+#answer small {
+  font-size: 16px;
+}
+
+.hidden {
+  display: none;
 }

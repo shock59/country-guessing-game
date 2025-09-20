@@ -17,21 +17,35 @@ function createFlag(iso) {
   return img;
 }
 
+function guessedCountry(country) {
+  const answerDiv = document.querySelector("#answer");
+  answerDiv.className = "";
+}
+
 const country = randomFromArray(anthems);
 
 const audioTag = document.querySelector("audio");
 audioTag.src = country.src;
 
 const answerDiv = document.querySelector("#answer");
+const p = document.createElement("p");
 const flag = createFlag(country.iso);
 const boldText = document.createElement("b");
 boldText.innerText = ` ${country.countryName} - ${country.anthemName}`;
-answerDiv.innerHTML = "The correct answer was ";
-answerDiv.appendChild(flag);
-answerDiv.appendChild(boldText);
-answerDiv.innerHTML += `${
+p.innerHTML = "The correct answer was ";
+p.appendChild(flag);
+p.appendChild(boldText);
+p.innerHTML += `${
   country.translatedName ? ` ("${country.translatedName}")` : ""
 }`;
+const link = document.createElement("a");
+link.href = country.attribution.href;
+link.innerText = country.attribution.text;
+const attributionText = document.createElement("small");
+attributionText.innerHTML = "Attribution: ";
+attributionText.appendChild(link);
+answerDiv.appendChild(p);
+answerDiv.appendChild(attributionText);
 
 let guessableCountries = [country];
 while (guessableCountries.length < 4) {
@@ -50,5 +64,8 @@ for (let guessableCountry of guessableCountries) {
   const button = document.createElement("button");
   button.appendChild(img);
   button.appendChild(span);
+  button.addEventListener("click", () => {
+    guessedCountry(guessableCountry);
+  });
   buttonRow.appendChild(button);
 }

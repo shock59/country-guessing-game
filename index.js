@@ -16,9 +16,10 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-function createFlag(iso) {
+function createFlag(iso, countryName = undefined) {
   const img = new Image();
   img.src = `https://flagcdn.com/${iso.toLowerCase()}.svg`;
+  img.alt = `Flag${countryName ? ` of ${countryName}` : ""}`;
   return img;
 }
 
@@ -33,7 +34,7 @@ function guessedCountry(
   completedRounds++;
 
   const mainAnswerText = document.createElement("p");
-  const flag = createFlag(correctCountry.iso);
+  const flag = createFlag(correctCountry.iso, correctCountry.countryName);
   const boldText = document.createElement("b");
   boldText.innerText = ` ${correctCountry.countryName} - ${correctCountry.anthemName}`;
   mainAnswerText.innerHTML = "The correct answer was ";
@@ -86,7 +87,7 @@ function newCountry(score, completedRounds, previousCountries) {
 
   buttonRow.innerHTML = "";
   for (let guessableCountry of guessableCountries) {
-    const img = createFlag(guessableCountry.iso);
+    const img = createFlag(guessableCountry.iso, guessableCountry.countryName);
     const span = document.createElement("span");
     span.innerText = guessableCountry.countryName;
     const button = document.createElement("button");

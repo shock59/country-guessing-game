@@ -394,7 +394,7 @@ const anthems = [
     iso: "CR",
     countryName: "Costa Rica",
     anthemName: "Himno Nacional de la República de Costa Rica",
-    src: "www.navyband.navy.mil/music/anthems/costa-rica.mp3",
+    src: "https://www.navyband.navy.mil/music/anthems/costa-rica.mp3",
     attribution: {
       text: "United States Navy Band",
       href: "https://www.navyband.navy.mil/media/ceremonial",

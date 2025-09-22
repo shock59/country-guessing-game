@@ -7,7 +7,11 @@ body {
   display: flex;
   justify-content: center;
 
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", "Noto Sans", "Noto Sans Arabic", "Noto Sans Bengali",
+    "Noto Sans Devanagari", "Noto Sans Ethiopic", "Noto Sans Hebrew",
+    "Noto Sans JP", "Noto Sans KR", "Noto Sans Lao", "Noto Sans Marchen",
+    "Noto Sans Myanmar", "Noto Sans SC", "Noto Sans Sinhala", "Noto Sans TC",
+    "Noto Sans Thaana", "Noto Sans Thai", "Noto Serif Tibetan", sans-serif;
 }
 
 main {
@@ -27,6 +31,10 @@ h1 {
 
 audio {
   margin: 8px;
+}
+
+#score {
+  font-size: 22px;
 }
 
 #button-row {
@@ -51,17 +59,22 @@ button {
   cursor: pointer;
 }
 
-button:nth-child(1) {
+#button-row button:nth-child(1) {
   background-color: #e43b44;
 }
-button:nth-child(2) {
+#button-row button:nth-child(2) {
   background-color: #e79b29;
 }
-button:nth-child(3) {
+#button-row button:nth-child(3) {
   background-color: #3e8948;
 }
-button:nth-child(4) {
+#button-row button:nth-child(4) {
   background-color: #0099db;
+}
+
+.next-button {
+  margin: 0 auto;
+  background-color: #003952;
 }
 
 button:hover {
@@ -86,7 +99,7 @@ button img {
   vertical-align: middle;
 }
 
-#answer small {
+#answer .small {
   font-size: 16px;
 }
 

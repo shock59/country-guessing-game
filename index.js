@@ -1,3 +1,8 @@
+const scoreTag = document.querySelector("#score");
+const audioTag = document.querySelector("audio");
+const answerDiv = document.querySelector("#answer");
+const buttonRow = document.querySelector("#button-row");
+
 function randomFromArray(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
@@ -17,55 +22,90 @@ function createFlag(iso) {
   return img;
 }
 
-function guessedCountry(country) {
-  const answerDiv = document.querySelector("#answer");
-  answerDiv.className = "";
-}
+function guessedCountry(
+  guessedCountry,
+  correctCountry,
+  score,
+  completedRounds,
+  previousCountries
+) {
+  score += guessedCountry == correctCountry ? 1 : 0;
+  completedRounds++;
 
-const country = randomFromArray(anthems);
+  const mainAnswerText = document.createElement("p");
+  const flag = createFlag(correctCountry.iso);
+  const boldText = document.createElement("b");
+  boldText.innerText = ` ${correctCountry.countryName} - ${correctCountry.anthemName}`;
+  mainAnswerText.innerHTML = "The correct answer was ";
+  mainAnswerText.appendChild(flag);
+  mainAnswerText.appendChild(boldText);
+  mainAnswerText.innerHTML += `${
+    correctCountry.translatedName ? ` ("${correctCountry.translatedName}")` : ""
+  }`;
+  const link = document.createElement("a");
+  link.href = correctCountry.attribution.href;
+  link.innerText = correctCountry.attribution.text;
 
-const audioTag = document.querySelector("audio");
-audioTag.src = country.src;
+  const attributionText = document.createElement("p");
+  attributionText.className = "small";
+  attributionText.innerHTML = "Attribution: ";
+  attributionText.appendChild(link);
 
-const answerDiv = document.querySelector("#answer");
-const p = document.createElement("p");
-const flag = createFlag(country.iso);
-const boldText = document.createElement("b");
-boldText.innerText = ` ${country.countryName} - ${country.anthemName}`;
-p.innerHTML = "The correct answer was ";
-p.appendChild(flag);
-p.appendChild(boldText);
-p.innerHTML += `${
-  country.translatedName ? ` ("${country.translatedName}")` : ""
-}`;
-const link = document.createElement("a");
-link.href = country.attribution.href;
-link.innerText = country.attribution.text;
-const attributionText = document.createElement("small");
-attributionText.innerHTML = "Attribution: ";
-attributionText.appendChild(link);
-answerDiv.appendChild(p);
-answerDiv.appendChild(attributionText);
-
-let guessableCountries = [country];
-while (guessableCountries.length < 4) {
-  const newCountry = randomFromArray(anthems);
-  if (!guessableCountries.includes(newCountry)) {
-    guessableCountries.push(newCountry);
-  }
-}
-guessableCountries = shuffleArray(guessableCountries);
-
-const buttonRow = document.querySelector("#button-row");
-for (let guessableCountry of guessableCountries) {
-  const img = createFlag(guessableCountry.iso);
-  const span = document.createElement("span");
-  span.innerText = guessableCountry.countryName;
-  const button = document.createElement("button");
-  button.appendChild(img);
-  button.appendChild(span);
-  button.addEventListener("click", () => {
-    guessedCountry(guessableCountry);
+  const nextButton = document.createElement("button");
+  nextButton.className = "next-button";
+  nextButton.addEventListener("click", () => {
+    newCountry(score, completedRounds, previousCountries);
   });
-  buttonRow.appendChild(button);
+  nextButton.innerText = "Next Anthem";
+
+  answerDiv.appendChild(mainAnswerText);
+  answerDiv.appendChild(attributionText);
+  answerDiv.appendChild(nextButton);
+
+  answerDiv.className = "";
+
+  scoreTag.innerText = `Score: ${score}/${completedRounds}`;
 }
+
+function newCountry(score, completedRounds, previousCountries) {
+  const country = randomFromArray(anthems);
+  if (previousCountries.includes(country))
+    return newCountry(score, completedRounds, previousCountries);
+  previousCountries.push(country);
+
+  audioTag.src = country.src;
+
+  let guessableCountries = [country];
+  while (guessableCountries.length < 4) {
+    const newCountry = randomFromArray(anthems);
+    if (!guessableCountries.includes(newCountry)) {
+      guessableCountries.push(newCountry);
+    }
+  }
+  guessableCountries = shuffleArray(guessableCountries);
+
+  buttonRow.innerHTML = "";
+  for (let guessableCountry of guessableCountries) {
+    const img = createFlag(guessableCountry.iso);
+    const span = document.createElement("span");
+    span.innerText = guessableCountry.countryName;
+    const button = document.createElement("button");
+    button.appendChild(img);
+    button.appendChild(span);
+    button.addEventListener("click", () => {
+      guessedCountry(
+        guessableCountry,
+        country,
+        score,
+        completedRounds,
+        previousCountries
+      );
+    });
+    buttonRow.appendChild(button);
+  }
+
+  answerDiv.className = "hidden";
+  answerDiv.innerHTML = "";
+}
+
+newCountry(0, 0, []);

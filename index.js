@@ -17,7 +17,7 @@ function shuffleArray(array) {
 }
 
 function createFlag(iso) {
-  const img = document.createElement("img");
+  const img = new Image();
   img.src = `https://flagcdn.com/${iso.toLowerCase()}.svg`;
   return img;
 }
@@ -108,4 +108,8 @@ function newCountry(score, completedRounds, previousCountries) {
   answerDiv.innerHTML = "";
 }
 
+let flags = [];
+for (let country of anthems) {
+  flags.push(createFlag(country.iso));
+}
 newCountry(0, 0, []);

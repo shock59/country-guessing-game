@@ -107,6 +107,14 @@ button img {
 #footer {
   margin-top: auto;
   padding: 22px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+#footer img {
+  height: 22px;
+  margin-right: 8px;
 }
 
 .hidden {

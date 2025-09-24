@@ -37,6 +37,8 @@ function guessedCountry(
   completedRounds,
   previousCountries
 ) {
+  if (answerDiv.className == "") return;
+
   score += guessedCountry == correctCountry ? 1 : 0;
   completedRounds++;
 

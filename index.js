@@ -16,6 +16,13 @@ function shuffleArray(array) {
   return shuffled;
 }
 
+function randomCountry(previousCountries = []) {
+  const country = randomFromArray(anthems);
+  if (previousCountries.includes(country))
+    return randomCountry(previousCountries);
+  return country;
+}
+
 function createFlag(iso, countryName = undefined) {
   const img = new Image();
   img.src = `https://flagcdn.com/${iso.toLowerCase()}.svg`;
@@ -69,19 +76,17 @@ function guessedCountry(
 }
 
 function newCountry(score, completedRounds, previousCountries) {
-  const country = randomFromArray(anthems);
-  if (previousCountries.includes(country))
-    return newCountry(score, completedRounds, previousCountries);
+  if (previousCountries.length > 24) previousCountries.shift();
+  const country = randomCountry(previousCountries);
   previousCountries.push(country);
 
   audioTag.src = country.src;
 
   let guessableCountries = [country];
   while (guessableCountries.length < 4) {
-    const newCountry = randomFromArray(anthems);
-    if (!guessableCountries.includes(newCountry)) {
-      guessableCountries.push(newCountry);
-    }
+    guessableCountries.push(
+      randomCountry([...previousCountries, ...guessableCountries])
+    );
   }
   guessableCountries = shuffleArray(guessableCountries);
 

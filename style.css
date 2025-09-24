@@ -30,8 +30,13 @@ h1 {
   text-align: center;
 }
 
-audio {
+audio,
+#big-flag {
   margin: 8px;
+}
+
+#big-flag {
+  height: 256px;
 }
 
 #score {
@@ -43,6 +48,10 @@ audio {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+a {
+  text-decoration: none;
 }
 
 button {
@@ -104,17 +113,22 @@ button img {
   font-size: 16px;
 }
 
+#header,
 #footer {
-  margin-top: auto;
   padding: 22px;
   display: flex;
   align-items: center;
   font-size: 18px;
 }
 
+#footer {
+  margin-top: auto;
+}
+
 #footer img {
   height: 22px;
   margin-right: 8px;
+  border: none;
 }
 
 .hidden {

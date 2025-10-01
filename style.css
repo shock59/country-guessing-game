@@ -50,7 +50,7 @@ audio,
   justify-content: center;
 }
 
-a {
+a[href] {
   text-decoration: none;
   color: #1212c5;
 }
@@ -134,4 +134,34 @@ button img {
 
 .hidden {
   display: none;
+}
+
+.all-anthems-container {
+  padding: 12px;
+  width: calc(100% - 24px);
+}
+
+.all-anthems-container p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 28px;
+}
+
+.all-anthems-container p img {
+  margin-right: 12px;
+}
+
+.all-anthems-container .audio-div {
+  display: flex;
+  align-items: center;
+}
+
+.audio-div audio {
+  margin: 0;
+  margin-right: 12px;
+}
+
+.audio-div.upper-margin {
+  margin-top: 8px;
 }

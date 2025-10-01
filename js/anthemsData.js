@@ -67,7 +67,7 @@ const anthems = [
   {
     iso: "AM",
     countryName: "Armenia",
-    anthemName: "Mer Hayrenik",
+    anthemName: "Մեր Հայրենիք",
     src: "https://www.navyband.navy.mil/music/anthems/armenia.mp3",
     attribution: {
       text: "United States Navy Band",

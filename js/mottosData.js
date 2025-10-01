@@ -1,4 +1,4 @@
-const mottos = [
+const countries = [
   {
     iso: "AL",
     countryName: "Albania",

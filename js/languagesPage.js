@@ -1,5 +1,5 @@
 const scoreTag = document.querySelector("#score");
-const mottoContainer = document.querySelector("#motto");
+const nameContainer = document.querySelector("#motto");
 const answerDiv = document.querySelector("#answer");
 const buttonRow = document.querySelector("#button-row");
 
@@ -23,10 +23,10 @@ function randomCountry(previousCountries = []) {
   return country;
 }
 
-function createFlag(iso, countryName = undefined) {
+function createFlag(iso, englishName = undefined) {
   const img = new Image();
   img.src = `https://flagcdn.com/${iso.toLowerCase()}.svg`;
-  img.alt = `Flag${countryName ? ` of ${countryName}` : ""}`;
+  img.alt = `Flag${englishName ? ` of ${englishName}` : ""}`;
   return img;
 }
 
@@ -43,9 +43,9 @@ function guessedCountry(
   completedRounds++;
 
   const mainAnswerText = document.createElement("p");
-  const flag = createFlag(correctCountry.iso, correctCountry.countryName);
+  const flag = createFlag(correctCountry.iso, correctCountry.englishName);
   const boldText = document.createElement("b");
-  boldText.innerText = ` ${correctCountry.countryName}`;
+  boldText.innerText = ` ${correctCountry.englishName} - ${correctCountry.language}`;
   mainAnswerText.innerHTML = "The correct answer was ";
   mainAnswerText.appendChild(flag);
   mainAnswerText.appendChild(boldText);
@@ -63,8 +63,6 @@ function guessedCountry(
   answerDiv.className = "";
 
   scoreTag.innerText = `Score: ${score}/${completedRounds}`;
-
-  mottoContainer.innerText = correctCountry.motto;
 }
 
 function newCountry(score, completedRounds, previousCountries) {
@@ -72,9 +70,7 @@ function newCountry(score, completedRounds, previousCountries) {
   const country = randomCountry(previousCountries);
   previousCountries.push(country);
 
-  mottoContainer.innerText = country.censoredMotto
-    ? country.censoredMotto
-    : country.motto;
+  nameContainer.innerText = country.name;
 
   let guessableCountries = [country];
   while (guessableCountries.length < 4) {
@@ -86,9 +82,9 @@ function newCountry(score, completedRounds, previousCountries) {
 
   buttonRow.innerHTML = "";
   for (let guessableCountry of guessableCountries) {
-    const img = createFlag(guessableCountry.iso, guessableCountry.countryName);
+    const img = createFlag(guessableCountry.iso, guessableCountry.englishName);
     const span = document.createElement("span");
-    span.innerText = guessableCountry.countryName;
+    span.innerText = guessableCountry.englishName;
     const button = document.createElement("button");
     button.appendChild(img);
     button.appendChild(span);

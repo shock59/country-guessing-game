@@ -165,3 +165,9 @@ button img {
 .audio-div.upper-margin {
   margin-top: 8px;
 }
+
+#motto {
+  font-size: 52px;
+  font-weight: bold;
+  margin: 18px 0;
+}
